@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <nav class="navbar navbar-custom navbar-expand-sm navbar-dark ">
+        <a class="navbar-brand" href="/">Confession</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Đăng tải confession</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/status">Trạng thái trờ duyệt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reply">Confession Reply</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admi">Trang quản trị</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+        <div class="card text-left">
+            <div class="card-body">
+                <h4 class="card-title">Trả lời Confession</h4>
+                <p class="card-text">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="ID Confession  ">
+                    <small  class="form-text text-muted">ID có dạng
+                        <strong>xxxxxxxxxxxx</strong></small>
+                    <br>
+                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Token">
+                    <small  class="form-text text-muted">Token có dạng
+                        <strong>xxxxxxxxxxxx-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</strong></small>
+                    <br>
+                    <textarea type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nội dung"></textarea>
+                    <small  class="form-text text-muted">Có thể xuống hàng bằng cách dùng Enter</small>
+                    <small  class="form-text text-muted">Nếu cần khoá bình luận, bạn có thể để trống phân nội dung </small>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">Reply</a>
+                    <a name="" id="" class="btn btn-danger" href="#" role="button">Khoá bình luận</a>
+                </div>
+                </p>
+            </div>
+        </div>
+
+
+
+        <br>
+        <div class="card text-left">
+            <div class="card-body">
+                <h4 class="card-title">Luật đăng bài</h4>
+                <ul>
+                    <% rules.forEach(element=> { %>
+                        <li>
+                            <%= element %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .navbar-custom {
+        background-color: #95b8d1;
+    }
+</style>
+<script>
+
+</script>
+
+</html>

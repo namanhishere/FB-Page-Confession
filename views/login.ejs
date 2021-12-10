@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Đăng nhập</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <div class="bg">
+      <div class="container">
+        <br>
+        <br>
+        <br>
+          <div class="card" id="carrrrd">
+              <div class="card-body">
+                <h1 class="display-2">Đăng nhập</h1>
+                  <hr class="my-2">
+               <div class="form-group">
+                 <label for=""></label>
+                 <p>Tên tài khoản</p>
+                 <input type="" class="form-control" name="" id="name" placeholder="Username">
+                 <br>
+                 <p>Mật khẩu</p>
+                 <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Mật khẩu">
+                 <br>
+                 <p>
+                <button type="submit" class="btn btn-success" id="dang-ki">Đăng nhập</button>
+                 </p>
+               </div>
+                  
+              </div>
+          </div>
+      </div>
+    </div>
+   
+  </body>
+  <style>
+body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("https://tranhtreotuonghanoi.com/wp-content/uploads/2020/05/nhung-buc-tranh-phong-canh-viet-nam-dep-nhat.jpg");
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols,Set"></script>
+  <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+  <script type="text/javascript">
+    let dang_ki = document.getElementById("dang-ki");
+    dang_ki.addEventListener("click",() =>{
+      let username = document.getElementById("name").value;
+      let password = document.getElementById("pass1").value;
+      console.log(username)
+      console.log(password)
+      if(!username || !password) return swal("Thông tin chưa đầy đủ", "Hãy đảm bảo bạn nhập đầy đủ thông tin", "error");
+      // fetch(`/api/adminLogin`,{method: 'POST',
+      //   username:username,
+      //   password:password1
+      // }
+      // ).then(e => {return e.json()}).then(res => {
+      //   swal(res.message,res.content,res.status);
+      // })
+      superagent.post('/api/adminLogin').send({username,password}).then(res => {
+        let data = JSON.parse(res.text)
+        console.log(data)
+        if(data.status === true){
+          console.log("test")
+          document.cookie = `username=${username}`
+          document.cookie = `password=${password}`
+        }
+        if(data.alert) swal(data.alert)
+        // if(data.info.redirect) window.location.replace(data.info.redirect)
+
+      })
+    }) 
+  </script>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/4.1.0/superagent.min.js" integrity="sha512-LJaxxgpiq7SihGQ21nejROsll6FRrgbs0Wxtgqb5x+Q0CJICA3vt8hlBxSD8NLsO+Yabgg3B7ARexiijKiojGg==" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-custom navbar-expand-sm navbar-dark ">
+        <a class="navbar-brand" href="/">Confession</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Đăng tải confession</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/status">Trạng thái trờ duyệt</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/reply">Confession Reply</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin">Trang quản trị</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+      <div class="card text-left" >
+        <div class="card-body">
+          <h4 class="card-title">Bản tin nóng hổi</h4>
+          <p class="card-text"><%= news %> </p>
+        </div>
+      </div>
+      <br>
+      <div class="card text-left" id="before-post-card">
+        <div class="card-body">
+          <h4 class="card-title">Đăng confession ở đây</h4>
+          <p class="card-text">
+            <div class="form-group">
+              <strong>Nhập nội dung</strong>
+              <textarea type="text"
+                class="form-control" name="" id="content" aria-describedby="helpId" placeholder="Nhập nội dung confession ở đây"></textarea>
+              <small id="helpId" class="form-text text-muted">Có thể bấm enter để xuống hàng</small>
+              <br>
+              <strong>lựa chọn tag kèm theo</strong>
+              <br>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="" id="checkBox-dogfood"> <p>#dogfood</p>
+                  <input type="checkbox" class="form-check-input" name="" id="checkBox-creepy"> <p>#creepy</p>
+                  <input type="checkbox" class="form-check-input" name="" id="checkBox-phot"> <p>#phốt</p>
+                  <input type="checkbox" class="form-check-input" name="" id="checkBox-che"> <p>Có che</p>
+                </label>
+              </div>
+              <input name="" id="btn-dangbai" class="btn btn-primary" type="button" value="Đăng bài">
+            </div>
+          </p>
+        </div>
+      </div>
+      <br>
+      <div hidden class="card text-left" id="after-post-card">
+        <div class="card-body">
+          <h4 class="card-title">Confession vừa mới gửi của bạn</h4>
+          <p class="card-text">
+            <ul><strong>ID:</strong> <p style="display:inline" id="confess-ID"></p></ul>
+            <ul><strong>Token:</strong> <p style="display:inline" id="confess-Token"></p></ul>
+            <ul>Để đăng thêm Confession, bạn có thể <a href="/">tải lại trang</a></ul>
+          </p>
+        </div>
+      </div>
+      <br>
+      <div class="card text-left">
+        <div class="card-body">
+          <h4 class="card-title">Luật đăng bài</h4>
+          <ul>
+            <% rules.forEach(element => { %>
+              <li><%= element %> </li>
+              <% }) %>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+  <style>
+    .navbar-custom {
+    background-color: #95b8d1;
+  }
+  </style>
+  <script>
+          document.getElementById("btn-dangbai").addEventListener("click",(e) => {
+            e.preventDefault()
+            let content = document.getElementById("content").value
+            let tag = []
+            let all_tag = ["dogfood", "creepy", "phot", "che"]
+            if(!content) return swal("Hình như bạn chưa nhập nội dung","Thử nhập lại nào :)","warning")
+            all_tag.forEach(element => {
+              if (document.getElementById("checkBox-"+element).checked) {
+                tag.push(element) 
+              }
+            });
+
+            superagent.post('/api/confessPost').send({content,tag}).then(res => {
+              let data = JSON.parse(res.text)
+              if(data.alert) swal(data.alert)
+              if(data.info){
+                document.getElementById("before-post-card").setAttribute("hidden","")
+                document.getElementById("after-post-card").removeAttribute("hidden")
+                document.getElementById('confess-ID').innerHTML = data.info.confessID;
+                document.getElementById('confess-Token').innerHTML = data.info.token;
+              }
+            });
+          })
+  </script>
+</html>
